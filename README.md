@@ -7,7 +7,7 @@ Visit the link below for more information and installation.
 
 [https://www.npmjs.com/package/simpler-redux](https://www.npmjs.com/package/simpler-redux)
 
-Built using thus redux async reddit example: [https://github.com/reduxjs/redux/blob/master/docs/advanced/ExampleRedditAPI.md](https://github.com/reduxjs/redux/blob/master/docs/advanced/ExampleRedditAPI.md)
+Built using this redux async reddit example: [https://github.com/reduxjs/redux/blob/master/docs/advanced/ExampleRedditAPI.md](https://github.com/reduxjs/redux/blob/master/docs/advanced/ExampleRedditAPI.md)
 
 
 ```
