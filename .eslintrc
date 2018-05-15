@@ -1,0 +1,30 @@
+{
+	"parser": "babel-eslint",
+	"plugins": [
+		"react",
+		"babel"
+	],
+	"parserOptions": {
+		"ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "extends": [
+		"standard", 
+		"standard-react"
+	],
+	"env": {
+		"amd": true,
+		"browser": true,
+		"jquery": true,
+		"node": true,
+		"es6": true,
+		"worker": true,
+		"mocha": true
+	},
+	"rules": {
+		"react/prop-types": 0,
+		"react/jsx-boolean-value": 0
+	}
+}
