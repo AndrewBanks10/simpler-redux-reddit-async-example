@@ -1,7 +1,7 @@
 Simpler-redux Reddit Example
 ============================
 
-Simpler-redux is a 22 line library (excluding blank lines and parameter verification) which simplifies redux and also reduces redux code size.
+Simpler-redux is a 25 line library (excluding blank lines and parameter verification) which simplifies redux and also reduces redux code size.
 
 Visit the link below for more information and installation.
 
