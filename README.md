@@ -1,7 +1,7 @@
 Simpler-redux Reddit Example
 ============================
 
-Simpler-redux is a 25 line library (excluding blank lines and parameter verification) which simplifies redux and also reduces redux code size.
+This demo compares the redux async reddit demo with the same implementation in simpler-redux.
 
 Visit the link below for more information and installation.
 

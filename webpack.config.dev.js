@@ -39,5 +39,6 @@ module.exports = {
       use: ['babel-loader'],
       include: path.join(__dirname, 'src')
     }]
-  }
+  },
+  resolve: { extensions: ['.js', '.jsx'] }
 }

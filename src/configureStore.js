@@ -1,15 +1,29 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import {createLogger} from 'redux-logger'
 import reducersObject from './reducers'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { registerSimplerRedux } from 'simpler-redux'
+import thunkMiddleware from 'redux-thunk'
 
-const loggerMiddleware = createLogger()
+let store
 
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  loggerMiddleware
-)(createStore)
-
-export default function configureStore (initialState) {
-  return createStoreWithMiddleware(combineReducers(reducersObject), initialState)
+// Keep the same redux store during a hot reload
+if (module.hot) {
+  if (typeof module.hot.data !== 'undefined' && typeof module.hot.data.store !== 'undefined') {
+    store = module.hot.data.store
+  }
+  // Save the store before unloading this module into module.hot.data.store
+  module.hot.dispose(data => {
+    data.store = store
+  })
 }
+
+if (typeof store === 'undefined') {
+  store = registerSimplerRedux(createStore(
+    combineReducers(reducersObject),
+    undefined,
+    applyMiddleware(
+      thunkMiddleware
+    )
+  ))
+}
+
+export default store

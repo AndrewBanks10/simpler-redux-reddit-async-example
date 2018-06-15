@@ -1,14 +1,14 @@
 {
-  "name": "react-transform-boilerplate",
+  "name": "simpler-redux-reddit-async-example",
   "version": "1.0.0",
-  "description": "A new Webpack boilerplate with hot reloading React components, and error handling on module and component level.",
+  "description": "This demo compares the redux reddit async demo with the same implementation in simpler-redux.",
   "scripts": {
     "start": "node devServer.js",
     "lint": "eslint src"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaearon/react-transform-boilerplate.git"
+    "url": "https://github.com/AndrewBanks10/simpler-redux-reddit-async-example.git"
   },
   "keywords": [
     "react",
@@ -23,17 +23,18 @@
     "babel",
     "react-transform"
   ],
-  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "author": "Andrew Banks https://github.com/AndrewBanks10",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/gaearon/react-transform-boilerplate/issues"
+    "url": "https://github.com/AndrewBanks10/simpler-redux-reddit-async-example/issues"
   },
-  "homepage": "https://github.com/gaearon/react-transform-boilerplate",
+  "homepage": "https://github.com/AndrewBanks10/simpler-redux-reddit-async-example",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-react-jsx-source": "^6.22.0",
     "babel-polyfill": "6.26.0",
@@ -45,6 +46,7 @@
     "eslint-config-standard": "^10.2.1",
     "eslint-config-standard-react": "^5.0.0",
     "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.4.0",
@@ -63,6 +65,6 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "simpler-redux": "0.0.2"
+    "simpler-redux": "^0.1.6"
   }
 }
