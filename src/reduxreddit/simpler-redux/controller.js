@@ -1,11 +1,12 @@
 import { connectLifeCycleComponentWithStore } from 'simpler-redux'
 import Component from './view/AsyncApp'
-import { serviceFunctions, selectors, storeIsDefinedCallback } from './model'
+import { serviceFunctions, storeIsDefinedCallback, reducerKey, initialUIState } from './model'
 
 export default connectLifeCycleComponentWithStore({
   uiComponent: Component,
-  selectors,
+  reducerKey,
+  initialUIState,
   serviceFunctions,
   storeIsDefinedCallback,
-  usingStateAccessors: true
+  noStoreParameterOnServiceFunctions: true
 })
