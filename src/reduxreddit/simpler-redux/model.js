@@ -1,8 +1,6 @@
-import { stateAccessors } from 'simpler-redux'
-
 /*
   The model is declarative to the controller (index.js) by its exports.
-  The following names are reserved and are used for exporting features.
+  The following names are reserved and are used for exporting features to the controller.
 
   reducerKey - (required) The key in the redux store for this module
   initialState - (required) The initial state that will be used in the reducer for initialization.
@@ -44,7 +42,7 @@ export const initialUIState = {
 //
 // Note that we do not allow 'cache' to be in the props of the react component
 // by defining it here instead of initialUIState above.
-// The below object will be used to initialize the reducer.
+// The below object will be used to initialize the reducer but not for mapStateToProps.
 //
 export const initialState = {
   ...initialUIState,
@@ -63,7 +61,7 @@ export const initialState = {
 // reducerState.isFetching = true translates to a redux state transition at reduxState[reducerKey][isFetching]
 //
 let setState, reducerState
-export const storeIsDefinedCallback = store =>
+export const storeIsDefinedCallback = (store, stateAccessors) =>
   ({setState, reducerState} = stateAccessors(store, reducerKey, initialState))
 
 //
@@ -84,7 +82,7 @@ const fetchPosts = selectedSubreddit => {
       // For example, reducerState.isFetching = true followed by reducerState.cache = cache
       // will cause the react component to render twice.
       setState({ cache, isFetching: false, selectedSubreddit, posts, lastUpdated: received })
-    })
+    }).catch(() => (reducerState.isFetching = false))
 }
 
 // Handles the cache.
@@ -115,11 +113,9 @@ const handleChangeSubreddit = selectedSubreddit => {
 // for a websocket app for example.
 //
 export const serviceFunctions = {
-  handleChangeSubreddit: selectedSubreddit => handleChangeSubreddit(selectedSubreddit),
+  handleChangeSubreddit: (_store, selectedSubreddit) => handleChangeSubreddit(selectedSubreddit),
   handleRefreshList: () => fetchPosts(reducerState.selectedSubreddit),
   // React lifecycle events are handled here in the business code away from the UI. This
   // supports the separation of concerns.
   componentDidMount: () => handleChangeSubreddit(reducerState.selectedSubreddit)
 }
-
-export const noStoreParameterOnServiceFunctions = true
