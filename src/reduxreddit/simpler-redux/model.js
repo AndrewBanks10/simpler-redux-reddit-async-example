@@ -20,7 +20,7 @@
     setState, getState and reducerState.
     Example:
     let setState, reducerState
-    export const storeIsDefinedCallback = store =>
+    export const storeIsDefinedCallback = (store, stateAccessors) =>
       ({setState, reducerState} = stateAccessors(store, reducerKey, initialState))
 */
 
