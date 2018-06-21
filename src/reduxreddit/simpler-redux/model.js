@@ -79,7 +79,7 @@ const fetchPosts = selectedSubreddit => {
       cache[selectedSubreddit] = { posts, received }
       // Make multiple state changes using setState. This will cause only one render of the
       // the react component.
-      // For example, reducerState.isFetching = true followed by reducerState.cache = cache
+      // For example, reducerState.isFetching = false followed by reducerState.cache = cache
       // will cause the react component to render twice.
       setState({ cache, isFetching: false, selectedSubreddit, posts, lastUpdated: received })
     }).catch(() => (reducerState.isFetching = false))

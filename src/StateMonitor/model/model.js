@@ -31,6 +31,7 @@ const listener = (changedReducerKey, objToMerge, type) => {
   if (changedReducerKey === reducerKey) {
     return
   }
+  objToMerge = {...objToMerge}
   const stack = getStackTrace()
   const states = [...reducerState.states]
   let strObj = ''
@@ -80,4 +81,45 @@ export const serviceFunctions = {
     objOpenStates[index] = !objOpenStates[index]
     reducerState.objOpenStates = objOpenStates
   }
+}
+
+//
+// HMR support
+//
+
+// If a module has been HMR loaded then its source on the stack is invalid.
+const handleHMRLoadedModules = changedSourceModules => {
+  const allStates = [...reducerState.states]
+  const len = allStates.length
+  for (let i = 0; i < len; ++i) {
+    if (allStates[i].stack !== undefined) {
+      allStates[i].stack.forEach(stackEntry => {
+        if (stackEntry.moduleName && stackEntry.moduleName !== 'Unknown') {
+          if (changedSourceModules.some(e => stackEntry.moduleName === e)) {
+            stackEntry.moduleName = 'Unknown'
+          }
+        }
+      })
+    }
+  }
+  reducerState.states = allStates
+}
+
+if (module.hot) {
+  module.hot.decline()
+  const webpackHotUpdate = 'webpackHotUpdate'
+  const parentHotUpdateCallback = window[webpackHotUpdate]
+  // Webpack uses window[webpackHotUpdate] as the function to call on a hmr.
+  // So, save that function and replace it with one of our own so we
+  // can determine which module source files changed. Then
+  // call the webpack function that was saved.
+  window[webpackHotUpdate] =
+    (chunkId, moreModules) => {
+      // Call the webpack hmr handler.
+      if (typeof parentHotUpdateCallback === 'function') {
+        parentHotUpdateCallback(chunkId, moreModules)
+      }
+      // Now handle the changed source modules for the monitor.
+      handleHMRLoadedModules(Object.keys(moreModules))
+    }
 }
