@@ -115,7 +115,7 @@ const handleChangeSubreddit = selectedSubreddit => {
 export const serviceFunctions = {
   handleChangeSubreddit: (_store, selectedSubreddit) => handleChangeSubreddit(selectedSubreddit),
   handleRefreshList: () => fetchPosts(reducerState.selectedSubreddit),
-  // React lifecycle events are handled here in the business code away from the UI. This
+  // Non-DOM oriented react lifecycle events are handled here in the business code away from the UI. This
   // supports the separation of concerns.
   componentDidMount: () => handleChangeSubreddit(reducerState.selectedSubreddit)
 }

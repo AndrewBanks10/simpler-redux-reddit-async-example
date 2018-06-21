@@ -3,6 +3,13 @@ const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const opn = require('opn')
 
+let noopn = false
+process.argv.forEach(function (val) {
+  if (val === 'noopn') {
+    noopn = true
+  }
+})
+
 let config = require('./webpack.config.dev')
 
 const port = process.env.npm_package_config_port || 3000
@@ -14,6 +21,8 @@ new WebpackDevServer(webpack(config), config.devServer
     console.log(err)
   }
   console.log(`devServer.js listening at http://${host}:${port}.`)
-  opn(`http://${host}:${port}`).then(() => {
-  })
+  if (!noopn) {
+    opn(`http://${host}:${port}`).then(() => {
+    })
+  }
 })

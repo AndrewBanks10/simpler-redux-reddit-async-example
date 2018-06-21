@@ -9,7 +9,7 @@
 		{
 			"args": [
 				"run",
-				"start",
+				"vscodestart",
 				"--silent",
 				"--react-hot-boilerplate-vscode:port=3000",
 				"--react-hot-boilerplate-vscode:host=localhost"

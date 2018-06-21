@@ -4,6 +4,7 @@
   "description": "This demo compares the redux reddit async demo with the same implementation in simpler-redux.",
   "scripts": {
     "start": "node devServer.js",
+    "vscodestart": "node devServer.js noopn",
     "lint": "eslint src"
   },
   "repository": {
@@ -65,6 +66,6 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "simpler-redux": "^0.1.8"
+    "simpler-redux": "^0.1.10"
   }
 }

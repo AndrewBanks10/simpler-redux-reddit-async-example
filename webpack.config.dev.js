@@ -33,12 +33,14 @@ module.exports = {
     }
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules|bower_components/,
-      use: ['babel-loader'],
-      include: path.join(__dirname, 'src')
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules|bower_components/,
+        use: ['babel-loader'],
+        include: path.join(__dirname, 'src')
+      }
+    ]
   },
-  resolve: { extensions: ['.js', '.jsx'] }
+  resolve: { extensions: ['.js', '.jsx', 'scss'] }
 }
