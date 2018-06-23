@@ -1,14 +1,16 @@
 import getStackTrace from './callstack'
 
+const hmrInvalid = 'Unknown'
+
 export const reducerKey = '@@@@stateMonitor'
 
 export const initialUIState = {
-  states: [],
   displayMonitor: true, // Set this to false to turn off the monitor. Production code is automatically off.
   displayModule: false,
   isMinimized: false,
   clipBoard: '',
   selectedState: {},
+  states: [],
   objOpenStates: []
 }
 
@@ -28,12 +30,14 @@ let reducerState
 let setState
 
 const listener = (changedReducerKey, objToMerge, type) => {
+  // If a state change results from this module ignore it.
   if (changedReducerKey === reducerKey) {
     return
   }
-  objToMerge = {...objToMerge}
+  objToMerge = { ...objToMerge }
+  // Get the stack trace associated with the consumer code state change.
   const stack = getStackTrace()
-  const states = [...reducerState.states]
+  // Construct a friendly string for the state change object.
   let strObj = ''
   Object.keys(objToMerge).forEach(key => {
     if (strObj !== '') {
@@ -44,6 +48,8 @@ const listener = (changedReducerKey, objToMerge, type) => {
   if (strObj !== '') {
     strObj = `${changedReducerKey}: {${strObj}}`
   }
+  // redux state change with an array.
+  let states = [...reducerState.states]
   states.push({ reducerKey: changedReducerKey, objToMerge, type, stack, strObj })
   reducerState.states = states
 }
@@ -72,7 +78,11 @@ export const serviceFunctions = {
       selectedState,
       displayModule: true,
       objOpenStates: Object.keys(state.objToMerge).map(e => false),
-      clipBoard: JSON.stringify({ file: state.stack[tos].moduleName, line: state.stack[tos].line, stack: state.stack })
+      clipBoard: JSON.stringify({
+        file: state.stack[tos].moduleName,
+        line: state.stack[tos].line,
+        stack: state.stack
+      })
     })
   },
   closeDisplayModule: () => (reducerState.displayModule = false),
@@ -94,9 +104,10 @@ const handleHMRLoadedModules = changedSourceModules => {
   for (let i = 0; i < len; ++i) {
     if (allStates[i].stack !== undefined) {
       allStates[i].stack.forEach(stackEntry => {
-        if (stackEntry.moduleName && stackEntry.moduleName !== 'Unknown') {
+        if (stackEntry.moduleName && stackEntry.moduleName !== hmrInvalid) {
           if (changedSourceModules.some(e => stackEntry.moduleName === e)) {
-            stackEntry.moduleName = 'Unknown'
+            stackEntry.moduleName = hmrInvalid
+            stackEntry.line = hmrInvalid
           }
         }
       })

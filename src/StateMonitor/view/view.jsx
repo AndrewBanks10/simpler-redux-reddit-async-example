@@ -69,7 +69,7 @@ const StateDetail = props => {
 
 class Clipboard extends React.Component {
   componentDidMount () {
-    var copyText = document.getElementById('myInput')
+    let copyText = document.getElementById('myInput')
     copyText.select()
     document.execCommand('Copy')
     copyText.style.display = 'none'
