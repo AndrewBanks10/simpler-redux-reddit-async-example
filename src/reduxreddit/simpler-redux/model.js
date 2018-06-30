@@ -119,3 +119,8 @@ export const serviceFunctions = {
   // supports the separation of concerns.
   componentDidMount: () => handleChangeSubreddit(reducerState.selectedSubreddit)
 }
+
+// This supports dynamic reducer loading. With this, simpler-redux automatically
+// builds the reducer and loads it when the react component is constructed. So,
+// you do not have to load the reducerKey/reducer into the global reducer object.
+export const isDynamicReducer = true

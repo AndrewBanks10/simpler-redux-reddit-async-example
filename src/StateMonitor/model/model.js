@@ -1,3 +1,4 @@
+import { isDynamicReducerLoading } from 'simpler-redux'
 import getStackTrace from './callstack'
 
 const hmrInvalid = 'Unknown'
@@ -62,12 +63,19 @@ export const storeIsDefinedCallback = (store, stateAccessors) => {
 }
 
 export const serviceFunctions = {
+  // Exit the monitor
   exit: () => (reducerState.displayMonitor = false),
+  // Minimize the monitor to the botton right of the screen.
   minimize: () => (reducerState.isMinimized = true),
+  // Maximize the monitor from the botton right of the screen.
   maximize: () => (reducerState.isMinimized = false),
+  // A state transition group has been clicked in the monitor.
   clickedState: (_store, index) => {
+    // Get the state element that was clicked.
     const state = reducerState.states[index]
+    // The call stack may contain multiple calls that cause the state transition.
     const tos = state.stack.length - 1
+    // Set selectedState that is needed by the UI that handles a state transition display.
     let selectedState = {
       reducerKey: state.reducerKey,
       moduleName: state.stack[tos].moduleName,
@@ -78,6 +86,9 @@ export const serviceFunctions = {
       selectedState,
       displayModule: true,
       objOpenStates: Object.keys(state.objToMerge).map(e => false),
+      // The clipboard is used for the vscode extension to display the state transition code source and line.
+      // The below will trigger a UI component to put code info into the clipboard.
+      // Then based on the clipboard, the vscode extension will display the source code and line.
       clipBoard: JSON.stringify({
         file: state.stack[tos].moduleName,
         line: state.stack[tos].line,
@@ -85,13 +96,17 @@ export const serviceFunctions = {
       })
     })
   },
+  // Close the state detail screen.
   closeDisplayModule: () => (reducerState.displayModule = false),
+  // Used to open and close keys in the displayed state transition.
   toggleObjOpenState: (_store, index) => {
     const objOpenStates = [...reducerState.objOpenStates]
     objOpenStates[index] = !objOpenStates[index]
     reducerState.objOpenStates = objOpenStates
   }
 }
+
+export const isDynamicReducer = isDynamicReducerLoading()
 
 //
 // HMR support

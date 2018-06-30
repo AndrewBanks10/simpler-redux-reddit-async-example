@@ -62,3 +62,10 @@ export function fetchPostsIfNeeded (subreddit) {
     }
   }
 }
+
+export function fetchPosts2 (dispatch, subreddit) {
+  dispatch(requestPosts(subreddit))
+  return fetch(`https://www.reddit.com/r/${subreddit}.json`)
+    .then(response => response.json())
+    .then(json => dispatch(receivePosts(subreddit, json)))
+}

@@ -17,13 +17,16 @@ if (module.hot) {
 }
 
 if (typeof store === 'undefined') {
-  store = registerSimplerRedux(createStore(
-    combineReducers(reducersObject),
-    undefined,
-    applyMiddleware(
-      thunkMiddleware
-    )
-  ))
+  store = registerSimplerRedux(
+    createStore(
+      combineReducers(reducersObject),
+      undefined,
+      applyMiddleware(
+        thunkMiddleware
+      )
+    ),
+    reducersObject
+  )
 }
 
 export default store

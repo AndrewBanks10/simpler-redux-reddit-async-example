@@ -12,3 +12,5 @@ export const initialState = initialUIState
 export const serviceFunctions = {
   onChange: (store, val) => store.setRState(reducerKey, {selection: val})
 }
+
+export const isDynamicReducer = true

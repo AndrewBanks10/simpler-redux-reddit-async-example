@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import AsyncAppView from '../views/AsyncAppView'
 import { connect } from 'react-redux'
 import {
+  fetchPosts2,
   selectSubreddit,
   fetchPostsIfNeeded,
   invalidateSubreddit
@@ -28,7 +29,8 @@ class AsyncApp extends Component {
 
   handleChange (nextSubreddit) {
     this.props.dispatch(selectSubreddit(nextSubreddit))
-    this.props.dispatch(fetchPostsIfNeeded(nextSubreddit))
+    fetchPosts2(this.props.dispatch, nextSubreddit)
+    // this.props.dispatch(fetchPostsIfNeeded(nextSubreddit))
   }
 
   handleRefreshClick (e) {
