@@ -22,6 +22,8 @@
     let setState, reducerState
     export const storeIsDefinedCallback = (store, stateAccessors) =>
       ({setState, reducerState} = stateAccessors(store, reducerKey, initialState))
+  isDynamicReducer - (Optional) This supports dynamic reducer loading. For this, simpler-redux
+    automatically takes care of building the reducer and loading it into the reducers object.
 */
 
 export const reducerKey = 'simplerReduxReddit'
@@ -97,10 +99,10 @@ const handleChangeSubreddit = selectedSubreddit => {
 
 //
 // The debugging and testing for react-redux occurs all over the place.
-// However for simpler-redux, all the debugging and testing occurs in this object.
+// However for simpler-redux, all the debugging and testing occurs in this object below.
 // It is the core of simpler-redux. That is because everything else is declarative and
 // all side effects occur as a result of the functions below.
-// Note that we also handle the react lifecycle events below. So, you do not need a class
+// Note that we also handle non-DOM react lifecycle events below. So, you do not need a class
 // for the react component just a plain dumb functional component.
 // This also allows you to test in isolation the functions in this object without requiring
 // a react UI.
