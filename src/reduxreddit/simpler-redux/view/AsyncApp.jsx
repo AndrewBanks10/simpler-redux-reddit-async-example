@@ -1,11 +1,13 @@
 import React from 'react'
 import Picker from './Picker'
 import Posts from './Posts'
+import StateMonitor from '../../../StateMonitor'
 
 export default props => {
   const { selectedSubreddit, posts, isFetching, lastUpdated, handleChangeSubreddit, handleRefreshList } = props
   return (
     <div>
+      <StateMonitor />
       <h1>Simpler Redux</h1>
       <Picker
         value={selectedSubreddit}
