@@ -6,6 +6,7 @@ export default props => {
   const { selectedSubreddit, posts, isFetching, lastUpdated, handleChangeSubreddit, handleRefreshList } = props
   return (
     <div>
+      <h1>Simpler Redux</h1>
       <Picker
         value={selectedSubreddit}
         onChange={handleChangeSubreddit}

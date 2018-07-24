@@ -26,6 +26,7 @@ module.exports = {
     contentBase: process.cwd(),
     inline: true,
     hot: true,
+    historyApiFallback: true,
     stats: {
       colors: true,
       chunks: false,

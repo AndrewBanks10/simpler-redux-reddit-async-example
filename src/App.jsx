@@ -1,15 +1,18 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import simplerReduxStore from './configureStore'
-import RedditDemo from './reduxreddit'
 import StateMonitor from './StateMonitor'
+import AsyncDemo from './reduxreddit'
+import { BrowserRouter } from 'react-router-dom'
 
 const App = () =>
   <Provider store={simplerReduxStore}>
-    <div>
-      <StateMonitor />
-      <RedditDemo />
-    </div>
+    <BrowserRouter>
+      <React.Fragment>
+        <AsyncDemo />
+        <StateMonitor />
+      </React.Fragment>
+    </BrowserRouter>
   </Provider>
 
 export default App

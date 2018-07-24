@@ -4,6 +4,7 @@ import Posts from './Posts'
 
 export default props =>
   <div>
+    <h1>Redux</h1>
     <Picker
       value={props.selectedSubreddit}
       onChange={props.handleChange}

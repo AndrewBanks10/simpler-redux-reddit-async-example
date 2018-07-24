@@ -1,5 +1,14 @@
 const stackTraceLimit = 30
 
+const addToStack = (stack, obj) => {
+  let index = stack.findIndex(e =>
+    e.line === obj.line && e.moduleName === obj.moduleName
+  )
+  if (index === -1) {
+    stack.unshift(obj)
+  }
+}
+
 export default () => {
   const err = new Error()
   Error.stackTraceLimit = stackTraceLimit
@@ -34,7 +43,7 @@ export default () => {
               line = parseInt(matchArray[2])
               column = parseInt(matchArray[3])
             } catch (e) { }
-            stack.unshift({ moduleName, line, column, isTS, fullModule, caller, translated: !isTS })
+            addToStack(stack, { moduleName, line, column, isTS, fullModule, caller, translated: !isTS })
           }
         }
       }
