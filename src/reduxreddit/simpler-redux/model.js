@@ -1,5 +1,7 @@
 export const reducerKey = 'simplerReduxReddit'
 
+// This object is the subset of keys from the reducer state that will be inserted into
+// the props of the component. So, state to props is declarative.
 export const initialUIState = {
   posts: [],
   selectedSubreddit: 'reactjs',
@@ -7,11 +9,13 @@ export const initialUIState = {
   lastUpdated: new Date()
 }
 
+// This object is how to define the state shape at the reducerKey.
 export const initialState = {
   ...initialUIState,
   cache: {}
 }
 
+// This is called in the constructor of the react component.
 let setState, reducerState
 export const storeIsDefinedCallback = (store, stateAccessors) =>
   ({setState, reducerState} = stateAccessors(store, reducerKey, initialState))
@@ -43,10 +47,12 @@ const handleChangeSubreddit = selectedSubreddit => {
   }
 }
 
+// All functions here will be automatically inserted into the props of the react component.
+// The react life cycle events like componentDidMount below will not be in the props but
+// will be automatically called when the particular react life cycle event is triggered
+// in the react component. So you can handle these events here rather than in the react UI code.
 export const serviceFunctions = {
   handleChangeSubreddit: (_store, selectedSubreddit) => handleChangeSubreddit(selectedSubreddit),
   handleRefreshList: () => fetchPosts(reducerState.selectedSubreddit),
   componentDidMount: () => handleChangeSubreddit(reducerState.selectedSubreddit)
 }
-
-export const isDynamicReducer = true
